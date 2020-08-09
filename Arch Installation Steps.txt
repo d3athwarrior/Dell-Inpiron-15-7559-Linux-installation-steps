@@ -1,0 +1,69 @@
+1. No separate partition for /root and /home it will be in the same space
+2. These steps are for a clean installation on a SSD
+Steps to install Arch on DELL 7559 with WiFi Drivers
+1. Use cfdisk /dev/sda to create the following partitions(Always make GPT partition):
+    a. base to 512mb: EFI File System
+    b. from there create a 16G swap
+    c. from there create a 250G Linux File system
+    The type can be set using the type option from the menu on the cfdisk command.
+2. Formatting the partitions to prepare them for use:
+    a. mkfs.fat -F32 /dev/sda1 - this is because that is the EFS
+    b. mkswap /dev/sda2 && swapon /dev/sda2
+    c. mkfs.ext4 /dev/sda3
+3. Setup internet connection:
+    a. iwctl - hit enter
+    b. station wlan0 connect "Network_Name" - hit enter
+4. Update the system packages: pacman -Syu
+5. Install the base system and the packages that will be required when arch-chroot into the new installation:
+    a. pacstrap /mnt base base-devel linux linux-firmware vim nano sudo git efibootmgr grub iwd dialog bash-completion networkmanager man-db man-pages intel-ucode (or amd-ucode if running amd CPU)
+6. chroot into the new system: arch-chroot /mnt /bin/bash
+7. Connect to internet using iwctl as seen in step 3.
+8. Set locale & time and date:
+    a. Check if timedatectl status shows the Universal Time correctly. If not then follow the steps below else skip to next step:
+        i) timedatectl set-local-rtc false
+        ii) timedatectl set-ntp true
+        iii) timedatectl set-timezone <region>/<city>
+    b. Set the localtime using: ln -sf /usr/share/zoneinfo/<replace_with_region>/<replace_with_city> /etc/localtime
+        eg. ln -sf /usr/share/zoneinfo/Europe/Stockholm /etc/localtime
+        NOTE: You can see the list of available time zones by entering "ln -sf /usr/share/zoneinfo/" and then hitting the tab key for list of all options.
+    c. Set the time for the system using: hwclock --systohc --utc
+    d. Check if the date is correct using date and timedatectl status. date should show local time and timedatectl should show the Universal time, the timezone and RTC time
+9. Set the hostname
+    a. echo your_host_name > /etc/hostname
+    b. nano /etc/hosts add the following entries:
+        127.0.0.0       localhost
+        ::1             localhost
+        127.0.1.1       your_host_name
+10. Install grub bootloader:
+    a. grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
+    NOTE: Enable microcode updates - intel-ucode or amd-ucode package was added to pacstrap and the below command should generate the required code to update the microcode whenever needed
+    b. grub-mkconfig -o /boot/grub/grub.cfg
+11. Enable the service for networkmanager & iwd
+    systemctl enable NetworkManager
+    systemctl enable iwd
+12. Now we need to exit and see if the system we just installed works fine or not:
+    a. exit
+    b. umount -R /mnt
+    c. swapoff -a if you created a swap and used it
+    d. reboot
+13. To connect to a WiFi adapter use nmcli:
+    a. nmcli device wifi connect <SSID> password <password>
+    b. Alternatively refer: https://wiki.archlinux.org/index.php/NetworkManager#Enable_NetworkManager -> nmcli examples
+    c. Scan the list of all the connections and then set the priorities in the config file once connected with the help of https://jlk.fjfi.cvut.cz/arch/manpages/man/nm-settings.5 or use nmcli connections edit to edit a connection that is already created
+    NOTE: If there is wpa_supplicant installed by any means, remove it or remove iwd if using wpa_supplicant
+
+TODO:
+1. Setup reflector to find the closest and the fastest mirrors for installing updates
+2. Install all the required drivers.
+3. Add a user with sudo access to the system
+4. Install drivers for switching between intel and nvidia graphics
+5. Add configuration to maybe decide how the CPU throttles(?)
+6. Add a GUI
+x. Post all the above configurations, install Windows alongside arch without breaking the arch installation
+
+References:
+1. https://gist.github.com/seteBR/34e3c1461cd715aaab7ee93dfc6f8316
+2. https://itsfoss.com/install-arch-linux/
+3. https://averagelinuxuser.com/a-step-by-step-arch-linux-installation-guide/#install-the-system
+4. Arch-Wiki
+5. https://www.google.com/search?q=arch+installation+steps&rlz=1C1CHBD_en-GBUS904US904&oq=arch+installation+steps&aqs=chrome..69i57.13339j0j1&sourceid=chrome&ie=UTF-8 (Yes, I feel I might not remember the search term I used to get a few of the above results)
