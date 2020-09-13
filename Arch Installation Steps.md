@@ -111,6 +111,7 @@ ToDo
 
 1. The splash screen doesn't show
 2. When the system is being shut down, it throws some error, need to investigate
+3. Hibernation is broken
 
 ## References
 
