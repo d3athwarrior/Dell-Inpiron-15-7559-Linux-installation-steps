@@ -95,6 +95,8 @@ ToDo
         ```sudo systemctl enable sddm.service```
         3. ```sudo reboot```  
         Post reboot you should see the new desktop and you should be able to login with the existing user.
+20. Install KDE applications as per your need. You can choose from ```kde-applications``` group:  
+    ```sudo pacman -Sy dolphin dolphin-plugins ffmpegthumbs filelight gwenview kcalc kcharselect kcron kdeconnect kdenetwork-filesharing kdialog kfing khelpcenter kmix kolourpaint konqueror konsole ksystemlog print-manager spectacle ntfs-3g```
 
 ## TODO
 
@@ -105,7 +107,7 @@ ToDo
 5. Add configuration to maybe decide how the CPU throttles(?)
 6. ~~Add a GUI~~
 7. ~~Post all the above configurations, install Windows alongside arch without breaking the arch installation~~
-8. Need to install a terminal app and see what application I need from the kde-application group
+8. ~~Need to install a terminal app and see what application I need from the kde-application group~~
 
 ## Issues
 
