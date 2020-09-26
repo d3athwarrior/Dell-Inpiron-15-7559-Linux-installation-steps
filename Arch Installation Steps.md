@@ -107,6 +107,10 @@ ToDo
     3. Run ```sudo nano mkinitcpio.conf``` and then search for ```HOOKS```. Add ```resume``` any where after ```udev```
     4. ```sudo mkinitcpico -P``` - This will regenerate the initramfs with the new hook to resume hibernated session.
     5. ```sudo grub-mkconfig -o /boot/grub/grub.cfg``` - This will regenerate the grub config with the new parameter.
+23. To enable bluetooth:
+    1. ```sudo pacman -Sy bluez bluez-utils```
+    2. ```sudo systemctl enable bluetooth.service```
+    3. To enable bluetooth either reboot the system or run ```sudo systemctl start bluetooth.service```
 
 ## TODO
 
