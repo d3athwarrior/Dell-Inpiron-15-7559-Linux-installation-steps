@@ -99,6 +99,14 @@ ToDo
     ```sudo pacman -Sy dolphin dolphin-plugins ffmpegthumbs filelight gwenview kcalc kcharselect kcron kdeconnect kdenetwork-filesharing kdialog kfing khelpcenter kmix kolourpaint konqueror konsole ksystemlog print-manager spectacle ntfs-3g```
 21. Install Google Noto fonts so that most of the unicode characters along with the latest emojis are rendered correctly:  
     ```pacman -Syu  noto-fonts noto-fonts-cjk noto-fonts-emoji```
+22. To enable hibernation:
+    1. Run the following command and note the UUID of the SWAP partition we created earlier:  
+    ```lsblk -f```
+    2. ```sudo nano /etc/default/grub```  
+    Find the ```GRUB_CMDLINE_LINUX_DEFAULT``` and append ```resume=UUID=<UUID from above step>```
+    3. Run ```sudo nano mkinitcpio.conf``` and then search for ```HOOKS```. Add ```resume``` any where after ```udev```
+    4. ```sudo mkinitcpico -P``` - This will regenerate the initramfs with the new hook to resume hibernated session.
+    5. ```sudo grub-mkconfig -o /boot/grub/grub.cfg``` - This will regenerate the grub config with the new parameter.
 
 ## TODO
 
@@ -113,9 +121,9 @@ ToDo
 
 ## Issues
 
-1. The splash screen doesn't show
+1. ~~The splash screen doesn't show~~(Because screw splash screen, it boots under 20s from SSD and splash screen doesn't even make any sense)
 2. When the system is being shut down, it throws some error, need to investigate
-3. Hibernation is broken
+3. ~~Hibernation is broken~~
 
 ## References
 
@@ -125,3 +133,5 @@ ToDo
 4. [Arch-Wiki](https://wiki.archlinux.org/)
 5. <https://www.google.com/search?q=arch+installation+steps&rlz=1C1CHBD_en-GBUS904US904&oq=arch+installation+steps&aqs=chrome..69i57.13339j0j1&sourceid=chrome&ie=UTF-8> (Yes, I feel I might not remember the search term I used to get a few of the above results)
 6. <https://averagelinuxuser.com/plasma-5-on-arch-linux-install-and-configure/>
+7. <https://wiki.archlinux.org/index.php/Power_management/Suspend_and_hibernate#Hibernation> - To get Hibernation working
+8. <https://wiki.archlinux.org/index.php/Mkinitcpio#Manual_generation> - Manual Regeneration of initramfs
