@@ -134,4 +134,4 @@ ToDo
 5. <https://www.google.com/search?q=arch+installation+steps&rlz=1C1CHBD_en-GBUS904US904&oq=arch+installation+steps&aqs=chrome..69i57.13339j0j1&sourceid=chrome&ie=UTF-8> (Yes, I feel I might not remember the search term I used to get a few of the above results)
 6. <https://averagelinuxuser.com/plasma-5-on-arch-linux-install-and-configure/>
 7. <https://wiki.archlinux.org/index.php/Power_management/Suspend_and_hibernate#Hibernation> - To get Hibernation working
-8. <https://wiki.archlinux.org/index.php/Mkinitcpio#Manual_generation> - Manual Regeneration of initramfs
+8. <https://wiki.archlinux.org/index.php/Mkinitcpio#Manual_generation> - Manual Regeneration of initramf
