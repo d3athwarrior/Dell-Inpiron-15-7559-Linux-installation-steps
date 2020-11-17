@@ -96,7 +96,7 @@ ToDo
         3. ```sudo reboot```  
         Post reboot you should see the new desktop and you should be able to login with the existing user.
 20. Install KDE applications as per your need. You can choose from ```kde-applications``` group:  
-    ```sudo pacman -Sy dolphin dolphin-plugins ffmpegthumbs filelight gwenview kcalc kcharselect kcron kdeconnect kdenetwork-filesharing kdialog kfing khelpcenter kmix kolourpaint konqueror konsole ksystemlog print-manager spectacle ark ntfs-3g```
+    ```sudo pacman -Sy dolphin dolphin-plugins ffmpegthumbs filelight gwenview kcalc kcharselect kcron kdeconnect kdenetwork-filesharing kdialog kfing khelpcenter plasma-pa kolourpaint konqueror konsole ksystemlog print-manager spectacle ark ntfs-3g```
 21. Install Google Noto fonts so that most of the unicode characters along with the latest emojis are rendered correctly:  
     ```pacman -Syu  noto-fonts noto-fonts-cjk noto-fonts-emoji```
 22. To enable hibernation:
