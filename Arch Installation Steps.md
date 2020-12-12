@@ -111,6 +111,8 @@ ToDo
     1. ```sudo pacman -Sy bluez bluez-utils```
     2. ```sudo systemctl enable bluetooth.service```
     3. To enable bluetooth either reboot the system or run ```sudo systemctl start bluetooth.service```
+24. To enable bluetooth audio:
+    1. ```sudo pacman -Sy pulseaudio-bluetooth```
 
 ## TODO
 
