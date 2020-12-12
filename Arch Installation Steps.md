@@ -80,11 +80,11 @@ ToDo
     1. Edit the pacman config file ```sudo nano /etc/pacman.conf```
     2. Uncomment the multilib section in the above file then save and exit.
     3. Run ```sudo pacman -Sy``` to upgrade the repository index
-18. Install intel and nvidia drivers:
+18. Install intel and ~~nvidia drivers~~:
     1. Intel Drivers:  
         ```sudo pacman -Sy mesa lib32-mesa xf86-video-intel vulkan-intel```
-    2. Nvidia drivers:  
-        ```sudo pacman -Sy nvidia nvidia-utils lib32-nvidia-utils nvidia-settings```
+    2. ~~Nvidia drivers:  ~~
+        ~~sudo pacman -Sy nvidia nvidia-utils lib32-nvidia-utils nvidia-settings~~
 19. Install the desktop environment:
     1. Installation of xorg which is a display server:  
         ```sudo pacman -Sy xorg-server xorg-apps```  
@@ -124,6 +124,7 @@ ToDo
 6. ~~Add a GUI~~
 7. ~~Post all the above configurations, install Windows alongside arch without breaking the arch installation~~
 8. ~~Need to install a terminal app and see what application I need from the kde-application group~~
+9. Nvvdia hass started to give issues post a driver update, i.e. Black screen. Need to investigate. Leaving as is right now as I don't really need dGPU on Arch. Feel free to investigate and send a PR if you find a fix for this issue.
 
 ## Issues
 
