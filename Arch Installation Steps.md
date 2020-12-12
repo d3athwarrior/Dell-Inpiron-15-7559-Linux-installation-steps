@@ -124,7 +124,7 @@ ToDo
 6. ~~Add a GUI~~
 7. ~~Post all the above configurations, install Windows alongside arch without breaking the arch installation~~
 8. ~~Need to install a terminal app and see what application I need from the kde-application group~~
-9. Nvvdia hass started to give issues post a driver update, i.e. Black screen. Need to investigate. Leaving as is right now as I don't really need dGPU on Arch. Feel free to investigate and send a PR if you find a fix for this issue.
+9. Nvidia has started to give issues post a driver update, i.e. Black screen. Need to investigate. Leaving as is right now as I don't really need dGPU on Arch. Feel free to investigate and send a PR if you find a fix for this issue.
 
 ## Issues
 
