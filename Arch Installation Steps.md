@@ -28,7 +28,8 @@ ToDo
     1. ```iwctl - hit enter```
     2. ```station wlan0 connect <Network_Name>``` - hit enter
 4. Install the base system and the packages that will be required when arch-chroot into the new installation:
-    1. ```pacstrap /mnt base base-devel linux linux-firmware vim nano sudo git efibootmgr grub iwd dialog bash-completion networkmanager man-db man-pages intel-ucode``` (or amd-ucode if running amd CPU)
+    1. Mount the partition ```mount /dev/sda3 /mnt```
+    2. ```pacstrap /mnt base base-devel linux linux-firmware vim nano sudo git efibootmgr grub iwd dialog bash-completion networkmanager man-db man-pages intel-ucode``` (or amd-ucode if running amd CPU)
 5. Generate the fstab using the following command:  
     ```genfstab -U /mnt >> /mnt/etc/fstab```
 6. chroot into the new system: ```arch-chroot /mnt /bin/bash```
