@@ -69,14 +69,15 @@ ToDo
     3. Scan the list of all the connections and then set the priorities in the config file once connected with the help of <https://jlk.fjfi.cvut.cz/arch/manpages/man/nm-settings.5> or use nmcli connections edit to edit a connection that is already created  
     **NOTE:** If there is wpa_supplicant installed by any means, remove it or remove iwd if using wpa_supplicant
 15. To add a user, create a password and a home directory for it, run the following commands:
-    1. ```useradd -m -g users -G wheel -s /bin/bash \<username>```
-    2. ```passwd \<username>```
+    1. ```useradd -m -g users -G wheel -s /bin/bash <username>```
+    2. ```passwd <username>```
     3. If  you need sudo access edit the /etc/sudoers file and uncomment the below line:  
     ```%wheel ALL=(ALL) ALL```
     4. Logoff from the root user and login as the new user.  
     **NOTE:** You may want to add the user to more than just the wheel group but that can be done on a need basis later on as well.
 16. Install and create default user directories:  
-```sudo pacman -Sy xdg-user-dirs```
+```sudo pacman -Sy xdg-user-dirs```  
+```xdg-user-dirs-update```
 17. Enable 32-bit application support in pacman  
     1. Edit the pacman config file ```sudo nano /etc/pacman.conf```
     2. Uncomment the multilib section in the above file then save and exit.
