@@ -24,12 +24,17 @@ ToDo
     2. ```mkswap /dev/sda2 && swapon /dev/sda2```
     3. ```mkfs.ext4 /dev/sda3```  
     **Note:** The sda1/sda2/sda3 etc notation might change based on the disk index. Example it could be called sdb4/sdb5 etc based on your choice of installation.
-3. Setup internet connection:
+3. Setup internet connection(Optional if you're not going to use WiFi for setup):
     1. ```iwctl - hit enter```
     2. ```station wlan0 connect <Network_Name>``` - hit enter
 4. Install the base system and the packages that will be required when arch-chroot into the new installation:
-    1. Mount the partition ```mount /dev/sda3 /mnt```
-    2. ```pacstrap /mnt base base-devel linux linux-firmware vim nano sudo git cups cups-pdf system-config-printer efibootmgr grub iwd dialog bash-completion networkmanager man-db man-pages intel-ucode``` (or amd-ucode if running amd CPU)
+    1. Enable parallel downloads of pacman by running the following steps:  
+        a. ```nano /etc/pacman.conf``` find ```ParallelDownloads``` and uncomment the line.  
+        b. Ctrl + X and save the file.
+    2. Mount the partitions  
+        a. ```mount /dev/sda3 /mnt```  
+        b. ```mkdir /mnt/boot && mkdir /mnt/boot/efi && mount /dev/sda1 /mnt/boot/efi```
+    3. ```pacstrap /mnt base base-devel linux linux-firmware vim nano sudo git cups cups-pdf system-config-printer efibootmgr grub iwd dialog bash-completion networkmanager man-db man-pages intel-ucode``` (or amd-ucode if running amd CPU)
 5. Generate the fstab using the following command:  
     ```genfstab -U /mnt >> /mnt/etc/fstab```
 6. chroot into the new system: ```arch-chroot /mnt /bin/bash```
@@ -47,13 +52,13 @@ ToDo
 9. Set the hostname
     1. ```echo <your_host_name> > /etc/hostname```
     2. ```nano /etc/hosts``` and add the following entries:  
-        127.0.0.0       localhost  
+        127.0.0.1       localhost  
         ::1             localhost  
         127.0.1.1       your_host_name  
 10. Install grub bootloader:
     1. ```grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi```  
     **NOTE:** Enable microcode updates - intel-ucode or amd-ucode package was added to pacstrap and the below command should generate the required code to update the microcode whenever needed
-    2. grub-mkconfig -o /boot/grub/grub.cfg
+    2. `grub-mkconfig -o /boot/grub/grub.cfg`
 11. Enable the service for networkmanager & iwd
     ```systemctl enable NetworkManager```  
     ```systemctl enable iwd```
@@ -76,29 +81,29 @@ ToDo
     4. Logoff from the root user and login as the new user.  
     **NOTE:** You may want to add the user to more than just the wheel group but that can be done on a need basis later on as well.
 16. Install and create default user directories:  
-```sudo pacman -Sy xdg-user-dirs```  
+```sudo pacman -S xdg-user-dirs```  
 ```xdg-user-dirs-update```
-17. Enable 32-bit application support in pacman  
+17. Enable 32-bit application support, parallel download and some colors in pacman   
     1. Edit the pacman config file ```sudo nano /etc/pacman.conf```
-    2. Uncomment the multilib section in the above file then save and exit.
+    2. Uncomment the ```multilib``` section, ```Color``` and ```ParallelDownloads=5```,  in the above file then save and exit.
     3. Run ```sudo pacman -Sy``` to upgrade the repository index
 18. Install intel and ~~nvidia drivers~~:
     1. Intel Drivers:  
-        ```sudo pacman -Sy mesa lib32-mesa xf86-video-intel vulkan-intel```
+        ```sudo pacman -S mesa lib32-mesa xf86-video-intel vulkan-intel```
     2. ~~Nvidia drivers:  ~~
-        ~~sudo pacman -Sy nvidia nvidia-utils lib32-nvidia-utils nvidia-settings~~
+        ~~sudo pacman -S nvidia nvidia-utils lib32-nvidia-utils nvidia-settings~~
 19. Install the desktop environment:
     1. Installation of xorg which is a display server:  
-        ```sudo pacman -Sy xorg-server xorg-apps```  
+        ```sudo pacman -S xorg-server xorg-apps```  
         **Note:** ```wayland``` can be used too but then that would mean using GNOME instead of KDE Plasma which I plan to use for this installation
     2. Installation of KDE Plasma Desktop Environment(DE):  
-        1. ```sudo pacman -Sy plasma``` - install everything as it is.
+        1. ```sudo pacman -S plasma``` - install everything as it is.
         2. As a result of the previous step, sddm will be installed by default. To start to see a GUI you just need to enable the service using the following command:  
         ```sudo systemctl enable sddm.service```
         3. ```sudo reboot```  
         Post reboot you should see the new desktop and you should be able to login with the existing user.
 20. Install KDE applications as per your need. You can choose from ```kde-applications``` group:  
-    ```sudo pacman -Sy dolphin dolphin-plugins ffmpegthumbs filelight gwenview kcalc kcharselect kcron kdeconnect kdenetwork-filesharing kdialog kfing khelpcenter plasma-pa kolourpaint konqueror konsole ksystemlog print-manager spectacle ark ntfs-3g```
+    ```sudo pacman -S dolphin dolphin-plugins ffmpegthumbs filelight gwenview kcalc kcharselect kcron kdeconnect kdenetwork-filesharing kdialog kfing khelpcenter plasma-pa kolourpaint konqueror konsole ksystemlog print-manager spectacle ark ntfs-3g```
 21. Install Google Noto fonts so that most of the unicode characters along with the latest emojis are rendered correctly:  
     ```pacman -Syu  noto-fonts noto-fonts-cjk noto-fonts-emoji```
 22. To enable hibernation:
@@ -110,11 +115,11 @@ ToDo
     4. ```sudo mkinitcpico -P``` - This will regenerate the initramfs with the new hook to resume hibernated session.
     5. ```sudo grub-mkconfig -o /boot/grub/grub.cfg``` - This will regenerate the grub config with the new parameter.
 23. To enable bluetooth:
-    1. ```sudo pacman -Sy bluez bluez-utils```
+    1. ```sudo pacman -S bluez bluez-utils```
     2. ```sudo systemctl enable bluetooth.service```
     3. To enable bluetooth either reboot the system or run ```sudo systemctl start bluetooth.service```
 24. To enable bluetooth audio:
-    1. ```sudo pacman -Sy pulseaudio-bluetooth```
+    1. ```sudo pacman -S pulseaudio-bluetooth```
 25. To enable printer service
     1. ```sudo systemctl enable cups && sudo systemctl start cups```
 
